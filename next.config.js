@@ -14,7 +14,6 @@ const nextConfig = {
   },
   experimental: {
     serverComponentsExternalPackages: ['mongodb'],
-    optimizeCss: true,
   },
   webpack(config, { dev }) {
     if (dev) {
