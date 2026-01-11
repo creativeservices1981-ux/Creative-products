@@ -26,9 +26,13 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-8">
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">CS</span>
-            </div>
+            <Image
+              src="https://customer-assets.emergentagent.com/job_dev-continuity-11/artifacts/g8txc6af_branding%20web%20digital%20store.png"
+              alt="Creative Services"
+              width={50}
+              height={50}
+              className="object-contain"
+            />
           </Link>
           
           {/* Navigation Links - Center */}
