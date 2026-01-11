@@ -24,17 +24,17 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (params.id) {
+    if (params.slug) {
       fetchProduct()
     }
-  }, [params.id])
+  }, [params.slug])
 
   const fetchProduct = async () => {
     try {
       const { data, error } = await supabase
         .from('products')
         .select('*')
-        .eq('id', params.id)
+        .eq('slug', params.slug)
         .eq('status', 'active')
         .single()
 
@@ -43,7 +43,7 @@ export default function ProductDetailPage() {
     } catch (error) {
       console.error('Error fetching product:', error)
       toast.error('Product not found')
-      router.push('/')
+      router.push('/products')
     } finally {
       setLoading(false)
     }
