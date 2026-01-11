@@ -58,37 +58,6 @@ export default function Home() {
     fetchFeaturedCoupons()
   }, [fetchProducts, fetchFeaturedCoupons])
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('id, title, description, price, delivery_type, image_url, access_expiry_hours, download_limit')
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .limit(3)
-
-      if (error) throw error
-      setProducts(data || [])
-    } catch (error) {
-      console.error('Error fetching products:', error)
-      toast.error('Failed to load products')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  const fetchFeaturedCoupons = useCallback(async () => {
-    try {
-      const response = await fetch('/api/coupons?featured=true')
-      const data = await response.json()
-      if (data.success) {
-        setCoupons(data.coupons || [])
-      }
-    } catch (error) {
-      console.error('Error fetching coupons:', error)
-    }
-  }, [])
-
   const handleFavoriteClick = useCallback((e, product) => {
     e.preventDefault()
     e.stopPropagation()
