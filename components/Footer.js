@@ -11,18 +11,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center mb-4">
               <Image
                 src="https://customer-assets.emergentagent.com/job_digiloft/artifacts/0lfqlmon_branding%20web%20digital%20store.png"
-                alt="Creative Services"
+                alt="Creative Services - A Digital Store"
                 width={40}
                 height={40}
                 className="object-contain"
               />
-              <div>
-                <h3 className="font-bold text-blue-900">Creative Services</h3>
-                <p className="text-xs text-yellow-600">A Digital Store</p>
-              </div>
             </div>
             <p className="text-sm text-muted-foreground">
               Your trusted marketplace for premium digital products. 
