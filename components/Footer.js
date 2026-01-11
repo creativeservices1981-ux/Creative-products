@@ -12,13 +12,9 @@ export default function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center mb-4">
-              <Image
-                src="https://customer-assets.emergentagent.com/job_digiloft/artifacts/0lfqlmon_branding%20web%20digital%20store.png"
-                alt="Creative Services - A Digital Store"
-                width={40}
-                height={40}
-                className="object-contain"
-              />
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-lg">CS</span>
+              </div>
             </div>
             <p className="text-sm text-muted-foreground">
               Your trusted marketplace for premium digital products. 
