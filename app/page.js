@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Package, Loader2, Clock, Download, Heart, Ticket, Copy, Check, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { toast } from 'sonner'
 import { useAuth } from '@/lib/supabase/auth'
 import { useCart } from '@/lib/cart-context'
@@ -21,10 +22,41 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [copiedCode, setCopiedCode] = useState(null)
 
+  const fetchProducts = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, title, description, price, delivery_type, image_url, access_expiry_hours, download_limit')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(3)
+
+      if (error) throw error
+      setProducts(data || [])
+    } catch (error) {
+      console.error('Error fetching products:', error)
+      toast.error('Failed to load products')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  const fetchFeaturedCoupons = useCallback(async () => {
+    try {
+      const response = await fetch('/api/coupons?featured=true')
+      const data = await response.json()
+      if (data.success) {
+        setCoupons(data.coupons || [])
+      }
+    } catch (error) {
+      console.error('Error fetching coupons:', error)
+    }
+  }, [])
+
   useEffect(() => {
     fetchProducts()
     fetchFeaturedCoupons()
-  }, [])
+  }, [fetchProducts, fetchFeaturedCoupons])
 
   const fetchProducts = async () => {
     try {
