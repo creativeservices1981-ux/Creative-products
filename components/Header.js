@@ -25,7 +25,7 @@ export default function Header() {
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-8">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
             <Image
               src="https://customer-assets.emergentagent.com/job_digiloft/artifacts/0lfqlmon_branding%20web%20digital%20store.png"
               alt="Creative Services - A Digital Store"
@@ -33,10 +33,6 @@ export default function Header() {
               height={50}
               className="object-contain"
             />
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-blue-900 leading-tight">Creative Services</h1>
-              <p className="text-xs text-yellow-600 font-medium">A Digital Store</p>
-            </div>
           </Link>
           
           {/* Navigation Links - Center */}
