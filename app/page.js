@@ -224,12 +224,15 @@ export default function Home() {
 
                 <CardHeader>
                   {product.image_url && (
-                    <div className="w-full h-48 mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 shadow-md">
-                      <img
+                    <div className="w-full h-48 mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 shadow-md relative">
+                      <Image
                         src={product.image_url}
                         alt={product.title}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        quality={75}
                       />
                     </div>
                   )}
