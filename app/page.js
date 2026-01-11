@@ -236,7 +236,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full gradient-primary text-white font-bold hover:scale-105 transition-transform" asChild>
-                    <Link href={`/products/${product.id}`}>
+                    <Link href={`/products/${product.slug}`}>
                       View Details →
                     </Link>
                   </Button>
