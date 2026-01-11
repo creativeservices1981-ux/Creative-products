@@ -26,7 +26,7 @@ export default function Home() {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('id, title, description, price, delivery_type, image_url, access_expiry_hours, download_limit')
+        .select('id, title, description, price, delivery_type, image_url, access_expiry_hours, download_limit, slug')
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(3)
