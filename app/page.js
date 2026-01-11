@@ -77,7 +77,7 @@ export default function Home() {
     }
   }, [])
 
-  const fetchFeaturedCoupons = async () => {
+  const fetchFeaturedCoupons = useCallback(async () => {
     try {
       const response = await fetch('/api/coupons?featured=true')
       const data = await response.json()
@@ -87,7 +87,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error fetching coupons:', error)
     }
-  }
+  }, [])
 
   const handleFavoriteClick = (e, product) => {
     e.preventDefault()
