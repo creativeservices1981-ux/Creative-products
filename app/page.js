@@ -89,7 +89,7 @@ export default function Home() {
     }
   }, [])
 
-  const handleFavoriteClick = (e, product) => {
+  const handleFavoriteClick = useCallback((e, product) => {
     e.preventDefault()
     e.stopPropagation()
     
@@ -98,14 +98,14 @@ export default function Home() {
     } else {
       addToFavorites(product)
     }
-  }
+  }, [isInFavorites, removeFromFavorites, addToFavorites])
 
-  const copyCode = (code) => {
+  const copyCode = useCallback((code) => {
     navigator.clipboard.writeText(code)
     setCopiedCode(code)
     toast.success('Coupon code copied!')
     setTimeout(() => setCopiedCode(null), 2000)
-  }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50 flex flex-col">
