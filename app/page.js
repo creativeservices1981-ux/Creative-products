@@ -58,14 +58,14 @@ export default function Home() {
     fetchFeaturedCoupons()
   }, [fetchProducts, fetchFeaturedCoupons])
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
+        .select('id, title, description, price, delivery_type, image_url, access_expiry_hours, download_limit')
         .eq('status', 'active')
         .order('created_at', { ascending: false })
-        .limit(3) // Only show 3 products on homepage
+        .limit(3)
 
       if (error) throw error
       setProducts(data || [])
@@ -75,7 +75,7 @@ export default function Home() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   const fetchFeaturedCoupons = async () => {
     try {
