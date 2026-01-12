@@ -3,12 +3,14 @@
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/supabase/auth'
 import { useCart } from '@/lib/cart-context'
+import { supabase } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ShoppingCart, LogIn, LogOut, LayoutDashboard, Loader2, Heart } from 'lucide-react'
+import { ShoppingCart, LogIn, LogOut, LayoutDashboard, Loader2, Heart, Package } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'sonner'
+import { useState, useEffect } from 'react'
 
 export default function Header() {
   const router = useRouter()
