@@ -188,8 +188,11 @@ export default function CheckoutPage() {
 
             if (verifyData.success) {
               clearCart()
-              toast.success('Payment successful! 🎉')
-              router.push(user ? '/my-purchases' : '/?success=true')
+              toast.success('Payment successful! Redirecting to your purchases... 🎉')
+              // Always redirect to My Purchases for logged-in users
+              setTimeout(() => {
+                router.push('/my-purchases')
+              }, 1500)
             } else {
               throw new Error('Payment verification failed')
             }
