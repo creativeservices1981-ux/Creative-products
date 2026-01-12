@@ -226,9 +226,11 @@ export default function CheckoutPage() {
 
     try {
       await createOrder()
-      toast.success('Order created! Waiting for admin approval')
+      toast.success('Order created! Redirecting to your purchases...')
       clearCart()
-      router.push(user ? '/my-purchases' : '/?success=true')
+      setTimeout(() => {
+        router.push('/my-purchases')
+      }, 1500)
       
     } catch (error) {
       console.error('Order creation error:', error)
