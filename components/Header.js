@@ -169,8 +169,13 @@ export default function Header() {
             Services
           </Link>
           {user && (
-            <Link href="/my-purchases" className="text-sm font-medium hover:text-primary transition-colors whitespace-nowrap">
+            <Link href="/my-purchases" className="text-sm font-medium hover:text-primary transition-colors whitespace-nowrap relative">
               Purchases
+              {purchaseCount > 0 && (
+                <Badge className="ml-1 h-4 w-4 inline-flex items-center justify-center p-0 text-[10px]">
+                  {purchaseCount}
+                </Badge>
+              )}
             </Link>
           )}
         </nav>
