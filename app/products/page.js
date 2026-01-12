@@ -56,14 +56,6 @@ export default function ProductsPage() {
       setLoading(false)
     }
   }
-      setFilteredProducts(data || [])
-    } catch (error) {
-      console.error('Error fetching products:', error)
-      toast.error('Failed to load products')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleFavoriteClick = (e, product) => {
     e.preventDefault()
