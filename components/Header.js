@@ -109,10 +109,16 @@ export default function Header() {
               <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
             ) : user ? (
               <>
-                {/* My Purchases */}
-                <Button variant="ghost" size="sm" className="hidden lg:flex" asChild>
+                {/* My Purchases with count */}
+                <Button variant="ghost" size="sm" className="hidden lg:flex relative" asChild>
                   <Link href="/my-purchases">
+                    <Package className="w-4 h-4 mr-2" />
                     My Purchases
+                    {purchaseCount > 0 && (
+                      <Badge className="ml-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                        {purchaseCount}
+                      </Badge>
+                    )}
                   </Link>
                 </Button>
 
