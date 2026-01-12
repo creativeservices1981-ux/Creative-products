@@ -101,28 +101,49 @@ export default function AccessProductPage() {
 
       if (updateError) throw updateError
 
-      // If it's a file download, generate signed URL
-      if (product.delivery_type === 'file_download' && product.storage_path) {
-        const { data, error } = await supabase.storage
-          .from('product-files')
-          .createSignedUrl(product.storage_path, 300) // 5 minutes
+      // Check if product has storage_path/download link
+      if (!product.storage_path) {
+        toast.error('Download link not available. Please contact support.')
+        setDownloading(false)
+        return
+      }
 
-        if (error) throw error
+      // If it's a file download from Supabase storage
+      if (product.delivery_type === 'file_download' && !product.storage_path.startsWith('http')) {
+        try {
+          const { data, error } = await supabase.storage
+            .from('product-files')
+            .createSignedUrl(product.storage_path, 3600) // 1 hour
 
-        // Open in new tab or download
-        window.open(data.signedUrl, '_blank')
-        toast.success('Download started!')
-      } else if (product.delivery_type === 'google_drive_link' || product.delivery_type === 'external_url') {
-        // Open external link
+          if (error) throw error
+
+          // Create a download link
+          const link = document.createElement('a')
+          link.href = data.signedUrl
+          link.download = product.title || 'download'
+          link.target = '_blank'
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          
+          toast.success('Download started!')
+        } catch (storageError) {
+          console.error('Storage error:', storageError)
+          // Fallback to direct link if storage fails
+          window.open(product.storage_path, '_blank')
+          toast.success('Opening download link!')
+        }
+      } else {
+        // For external links (Google Drive, Dropbox, etc.) or HTTP URLs
         window.open(product.storage_path, '_blank')
         toast.success('Opening product link!')
       }
 
-      // Refresh delivery data
+      // Refresh delivery data to show updated count
       verifyAccess()
     } catch (error) {
       console.error('Download error:', error)
-      toast.error('Failed to access product')
+      toast.error(error.message || 'Failed to access product')
     } finally {
       setDownloading(false)
     }
