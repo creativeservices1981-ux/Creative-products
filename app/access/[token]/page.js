@@ -232,7 +232,27 @@ export default function AccessProductPage() {
                   {order?.created_at ? format(new Date(order.created_at), 'MMM dd, yyyy') : 'N/A'}
                 </p>
               </div>
+              <div>
+                <p className="text-muted-foreground">Delivery Type</p>
+                <p className="font-medium capitalize">
+                  {product?.delivery_type?.replace(/_/g, ' ') || 'Digital'}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Status</p>
+                <Badge variant="default" className="bg-green-500">Active</Badge>
+              </div>
             </div>
+
+            {/* Show if link is available */}
+            {product?.storage_path && (
+              <Alert>
+                <CheckCircle className="h-4 w-4" />
+                <AlertDescription>
+                  <strong>Download/Access link is ready!</strong> Click the button below to access your product.
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
 
           {/* Access Information */}
