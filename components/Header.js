@@ -29,14 +29,14 @@ export default function Header() {
 
   const fetchPurchaseCount = async () => {
     try {
-      const { data, error } = await supabase
+      const { count, error } = await supabase
         .from('orders')
-        .select('id', { count: 'exact', head: true })
+        .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id)
         .eq('payment_status', 'paid')
 
-      if (!error && data !== null) {
-        setPurchaseCount(data)
+      if (!error) {
+        setPurchaseCount(count || 0)
       }
     } catch (error) {
       console.error('Error fetching purchase count:', error)
