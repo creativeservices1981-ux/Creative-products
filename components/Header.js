@@ -14,6 +14,32 @@ export default function Header() {
   const router = useRouter()
   const { user, profile, loading: authLoading, signOut } = useAuth()
   const { cartCount, favoritesCount } = useCart()
+  const [purchaseCount, setPurchaseCount] = useState(0)
+
+  // Fetch purchase count for logged-in users
+  useEffect(() => {
+    if (user) {
+      fetchPurchaseCount()
+    } else {
+      setPurchaseCount(0)
+    }
+  }, [user])
+
+  const fetchPurchaseCount = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('payment_status', 'paid')
+
+      if (!error && data !== null) {
+        setPurchaseCount(data)
+      }
+    } catch (error) {
+      console.error('Error fetching purchase count:', error)
+    }
+  }
 
   const handleSignOut = async () => {
     await signOut()
